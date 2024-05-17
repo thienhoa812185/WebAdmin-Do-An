@@ -1,0 +1,50 @@
+.cookiesContent {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    color: #000;
+    text-align: center;
+    border-radius: 20px;
+    padding: 30px 30px 30px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .message {
+    margin-bottom: 40px;
+    font-size: 18px;
+  }
+
+  .button-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .close-btn {
+    background-color: #ed6755;
+    font-weight: bold;
+  }
+
+  .check-btn {
+    background-color: #93dd2a;
+  }
+
+  .close-btn,
+  .check-btn {
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 50px;
+    padding: 14px;
+    font-size: 16px;
+    color: white;
+  }
+
+  .close-btn:hover,
+  .check-btn:hover {
+    opacity: 0.8;
+  }
+
+  
+  
