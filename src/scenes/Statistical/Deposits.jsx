@@ -8,13 +8,7 @@ function preventDefault(event) {
   event.preventDefault();
 }
 
-const totalRevenue = (orderList) => {
-  let total = 0;
-  orderList.forEach(element => {
-    total += element.totalPrice;
-  });
-  return total;
-}
+
 const areDatesEqual = (date1, date2) => {
   if (date1 === undefined || date2 === undefined) {
     return false;
@@ -28,8 +22,8 @@ const areDatesEqual = (date1, date2) => {
 const mapToOrderListDisplay = (orderList) => {
   const order = orderList.map(element => {
     return {
-      paymentTime: handleDateTime(element.paymentTime),
-      totalPrice: element.totalPrice
+      paymentTime: handleDateTime(element.appointmentTime),
+      totalPrice: element.doctor.examination_Price
     }
   })
   const groupedOrders = order.reduce((result, currentOrder) => {
@@ -58,11 +52,20 @@ const mapToOrderListDisplay = (orderList) => {
     }
   });
 }
-const handleDateTime = (timeArray) => {
-  const dateTime = new Date(timeArray[0], timeArray[1] - 1, timeArray[2], timeArray[3], timeArray[4], timeArray[5]);
-  return dateTime;
-}
+// const handleDateTime = (timeArray) => {
+//   const dateTime = new Date(timeArray[0], timeArray[1] - 1, timeArray[2], timeArray[3], timeArray[4], timeArray[5]);
+//   return dateTime;
+// }
 
+const handleDateTime = (dateString) => {
+  // Tách chuỗi thành các thành phần năm, tháng và ngày
+  const [year, month, day] = dateString.split('-').map(Number);
+
+  // Tạo đối tượng Date
+  const date = new Date(year, month - 1, day); // Trừ đi 1 vì tháng trong Date bắt đầu từ 0
+
+  return date;
+}
 
 const createDateArray = (startDate, endDate) => {
   const dateArray = [];

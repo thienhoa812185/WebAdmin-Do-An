@@ -36,6 +36,7 @@ const AppointmentManagement = () => {
                         //location: element.location,
                         //orderTime: handleDateTime(element.orderTime),
                         //statusBooking: element.statusBooking,
+                        statusPayment: element.statusPayment,
                         totalPrice: element.doctor.examination_Price,
                         statusBooking: element.statusBooking,
                         note: element.note
@@ -97,6 +98,21 @@ const AppointmentManagement = () => {
             headerName: "Tiền khám",
             flex: 1,
             cellClassName: "name-column--cell",
+        },
+        {
+            field: "statusPayment",
+            headerName: "Trạng thái thanh toán",
+            flex: 2,
+            renderCell: (params) => (
+                <div>
+                    {
+                        params.row.statusPayment === "PAID" && <span className="badge bg-success rounded-pill">{params.row.statusPayment}</span>
+                    }
+                    {
+                        params.row.statusPayment === "UNPAID" && <span className="badge bg-danger rounded-pill">{params.row.statusPayment}</span>
+                    }
+                </div>
+            ),
         },
         {
             field: "paymentMethod",

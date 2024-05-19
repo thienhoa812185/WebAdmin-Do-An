@@ -3,21 +3,7 @@ import { useTheme } from '@mui/material/styles';
 import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
 import Title from './Title';
 
-// Generate Sales Data
-function createData(time, amount) {
-    return { time, amount };
-}
 
-const data = [
-    createData('00:00', 0),
-    createData('03:00', 300),
-    createData('06:00', 600),
-    createData('09:00', 800),
-    createData('12:00', 1500),
-    createData('15:00', 2000),
-    createData('18:00', 2400)
-
-];
 
 const areDatesEqual = (date1, date2) => {
     if (date1 === undefined || date2 === undefined) {
@@ -32,8 +18,8 @@ const areDatesEqual = (date1, date2) => {
 const mapToOrderListDisplay = (orderList) => {
     const order = orderList.map(element => {
         return {
-            paymentTime: handleDateTime(element.paymentTime),
-            totalPrice: element.totalPrice
+            paymentTime: handleDateTime(element.appointmentTime),
+            totalPrice: element.doctor.examination_Price
         }
     })
     const groupedOrders = order.reduce((result, currentOrder) => {
@@ -62,9 +48,19 @@ const mapToOrderListDisplay = (orderList) => {
         }
     });
 }
-const handleDateTime = (timeArray) => {
-    const dateTime = new Date(timeArray[0], timeArray[1] - 1, timeArray[2], timeArray[3], timeArray[4], timeArray[5]);
-    return dateTime;
+// const handleDateTime = (timeArray) => {
+//     const dateTime = new Date(timeArray[0], timeArray[1] - 1, timeArray[2], timeArray[3], timeArray[4], timeArray[5]);
+//     return dateTime;
+// }
+
+const handleDateTime = (dateString) => {
+    // Tách chuỗi thành các thành phần năm, tháng và ngày
+    const [year, month, day] = dateString.split('-').map(Number);
+
+    // Tạo đối tượng Date
+    const date = new Date(year, month - 1, day); // Trừ đi 1 vì tháng trong Date bắt đầu từ 0
+
+    return date;
 }
 
 

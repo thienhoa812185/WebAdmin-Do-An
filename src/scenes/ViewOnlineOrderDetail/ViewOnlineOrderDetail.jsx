@@ -233,7 +233,10 @@ const ViewOnlineOrderDetail = () => {
                                     <div className="col-lg-6">
                                         <h3 className="h6">Payment Method</h3>
                                         <p>"Trả bằng tiền mặt"<br />
-                                            Total: 500000 <span className="badge bg-danger rounded-pill">UNPAID</span></p>
+                                            {order && order.statusPayment === "UNPAID" && <>Total: {order && order.doctor.examination_Price} <span className="badge bg-danger rounded-pill">{order && order.statusPayment}</span></>}
+                                            {order && order.statusPayment === "PAID" && <>Total: {order && order.doctor.examination_Price} <span className="badge bg-success rounded-pill">{order && order.statusPayment}</span></>}
+
+                                        </p>
                                     </div>
                                     <div className="col-lg-6">
                                         <h3 className="h6">Billing address</h3>
@@ -298,8 +301,8 @@ const ViewOnlineOrderDetail = () => {
                                     </>
                                 }
                                 {
-                                    order && order.statusBooking === "CONFIRM" && 
-                                        <Button variant='contained' sx={{ marginRight: 2 }} onClick={() => handleComfirmBooking("COMPLETED")} >Completed</Button>
+                                    order && order.statusBooking === "CONFIRM" &&
+                                    <Button variant='contained' sx={{ marginRight: 2 }} onClick={() => handleComfirmBooking("COMPLETED")} >Completed</Button>
                                 }
 
                             </div>

@@ -15,6 +15,7 @@ import { useTheme } from "@mui/material";
 import { ThemeProvider } from '@emotion/react';
 import { initializeConnect } from "react-redux/es/components/connect";
 import orderSerive from "../../service/orderService";
+import bookingService from "../../servicesss/bookingService";
 const statistics = [
   { id: 1, name: "Date" },
   { id: 2, name: "Month" },
@@ -26,14 +27,14 @@ const defaultTheme = createTheme();
 const Statistical = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [valueFromDate, setValueFromDate] = useState(dayjs('2023-12-25'));
-  const [valueToDate, setValueToDate] = useState(dayjs('2023-12-30'));
+  const [valueFromDate, setValueFromDate] = useState(dayjs('2024-05-15'));
+  const [valueToDate, setValueToDate] = useState(dayjs('2024-05-30'));
   const [orderList, setOrderList] = useState([]);
 
 
 
   useEffect(() => {
-    init();
+    initBooking();
   }, [])
 
   const init = () => {
@@ -42,6 +43,23 @@ const Statistical = () => {
         const order = []
         res.data.forEach(element => {
           if (element.paymentTime !== null) {
+            order.push(element);
+          }
+        })
+        console.log(order)
+        setOrderList(order);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
+  const initBooking = () => {
+    bookingService.getAllBooking()
+      .then(res => {
+        const order = []
+        res.data.forEach(element => {
+          if (element.statusPayment === 'PAID') {
             order.push(element);
           }
         })
