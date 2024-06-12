@@ -56,6 +56,7 @@ export default function CheckboxesTags({ id, time }) {
     const handleSubmitWorkingHour = () => {
         doctorService.updateScheduleDoctor(id, selectTimeList)
             .then(res => {
+                alert("Cập nhật thành công")
                 console.log("Update Thanh Cong");
             })
             .catch(err => {

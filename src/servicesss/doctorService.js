@@ -19,8 +19,20 @@ class DoctorService {
         return axios.get(API_URL + "/api/doctor/getById/" + id);
     }
 
+    getDoctorByUsername(username) {
+        return axios.get(API_URL + "/api/doctor/getByUsername/" + username)
+    }
+
     updateScheduleDoctor(id, schedule) {
         return axios.put(API_URL + "/api/doctor/updateScheduleDoctor/" + id, schedule);
+    }
+
+    updateInfomationDoctor(id, doctor) {
+        return axios.put(API_URL + "/api/doctor/updateInformationDoctor/" + id, doctor, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
     }
 
 }

@@ -1,4 +1,4 @@
-import { Box, Button, Grid, MenuItem, Paper, TextField } from "@mui/material"
+import { Box, Grid, Paper } from "@mui/material"
 import { createTheme } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import Header from "../../components/Header"
@@ -13,14 +13,7 @@ import Deposits from "./Deposits";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
 import { ThemeProvider } from '@emotion/react';
-import { initializeConnect } from "react-redux/es/components/connect";
-import orderSerive from "../../service/orderService";
 import bookingService from "../../servicesss/bookingService";
-const statistics = [
-  { id: 1, name: "Date" },
-  { id: 2, name: "Month" },
-  { id: 3, name: "Year" }
-]
 
 
 const defaultTheme = createTheme();
@@ -28,7 +21,7 @@ const Statistical = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [valueFromDate, setValueFromDate] = useState(dayjs('2024-05-15'));
-  const [valueToDate, setValueToDate] = useState(dayjs('2024-05-30'));
+  const [valueToDate, setValueToDate] = useState(dayjs('2024-06-10'));
   const [orderList, setOrderList] = useState([]);
 
 
@@ -37,38 +30,43 @@ const Statistical = () => {
     initBooking();
   }, [])
 
-  const init = () => {
-    orderSerive.getAllOrder()
-      .then(res => {
-        const order = []
-        res.data.forEach(element => {
-          if (element.paymentTime !== null) {
-            order.push(element);
-          }
-        })
-        console.log(order)
-        setOrderList(order);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-  }
-
   const initBooking = () => {
-    bookingService.getAllBooking()
-      .then(res => {
-        const order = []
-        res.data.forEach(element => {
-          if (element.statusPayment === 'PAID') {
-            order.push(element);
-          }
+    const role = localStorage.getItem("role")
+
+    if (role === "doctor") {
+      const username = localStorage.getItem("username")
+
+      bookingService.getAllBookingDoctor(username)
+        .then(res => {
+          const order = []
+          res.data.forEach(element => {
+            if (element.statusPayment === 'PAID') {
+              order.push(element);
+            }
+          })
+          console.log(order)
+          setOrderList(order);
         })
-        console.log(order)
-        setOrderList(order);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+    else {
+      bookingService.getAllBooking()
+        .then(res => {
+          const order = []
+          res.data.forEach(element => {
+            if (element.statusPayment === 'PAID') {
+              order.push(element);
+            }
+          })
+          console.log(order)
+          setOrderList(order);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
   }
 
 
@@ -76,8 +74,8 @@ const Statistical = () => {
     <Container maxWidth="lg">
       <Box>
         <Header
-          title="REVENUE STATISTICS"
-          subtitle="Monthly revenue statistics"
+          title="Thống kê doanh thu"
+          subtitle="Thống kê doanh thu theo ngày"
         />
         {/* <TextField
           color="secondary"
@@ -99,12 +97,12 @@ const Statistical = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={['DatePicker', 'DatePicker']}>
             <DatePicker
-              label="From Date"
+              label="Từ ngày"
               value={valueFromDate}
               onChange={(newValue) => setValueFromDate(newValue)}
             />
             <DatePicker
-              label="To Date"
+              label="Đến ngày"
               value={valueToDate}
               onChange={(newValue) => setValueToDate(newValue)}
             />

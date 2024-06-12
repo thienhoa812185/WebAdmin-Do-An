@@ -68,12 +68,10 @@ export default function Login(props) {
                         // setIsSubmitting(false);
                     })
                     .catch(err => {
-                        console.log("Do Thien Hoa")
                         console.log(err);
                     })
             })
             .catch((error) => {
-                console.log("Nguyen VIet")
                 alert(error.response.data);
                 setIsSubmitting(false);
             })
@@ -131,7 +129,7 @@ export default function Login(props) {
                                 required
                                 fullWidth
                                 id="username"
-                                label="Email Address"
+                                label="Username"
                                 name="username"
                                 autoComplete="email"
                                 autoFocus

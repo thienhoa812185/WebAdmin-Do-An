@@ -153,6 +153,10 @@ export default function Deposits(props) {
     return maxOrder;
   }
 
+  const formatCurrencyVND = (amount) => {
+    return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  }
+
   const totalRevenue = () => {
     let total = 0;
     if (orderList !== undefined) {
@@ -165,18 +169,18 @@ export default function Deposits(props) {
 
   return (
     <React.Fragment>
-      <Title>Total Revenue</Title>
+      <Title>Tổng doanh thu</Title>
       <Typography component="p" variant="h4">
-        {`${totalRevenue(props.order)} VND`}
+        {`${formatCurrencyVND(totalRevenue(props.order))}`}
       </Typography>
       <Typography color="text.secondary" sx={{ fontWeight: 'bold' }}>
-        Highest sales:
+        Doanh thu cao nhất:
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 0.5 }}>
         {getMaxSale().total === 0 ? `${getMaxSale().total} VND` : `${getMaxSale().total}VND: ${getMaxSale().time}`}
       </Typography>
       <Typography color="text.secondary" sx={{ fontWeight: 'bold' }}>
-        Lowest sales:
+        Doanh thu thấp nhất:
       </Typography>
       <Typography color="text.secondary" sx={{ flex: 1 }} >
         {getMinOrder().total === 0 ? `${getMinOrder().total} VND` : `${getMinOrder().total}VND: ${getMinOrder().time}`}

@@ -145,31 +145,7 @@ const ViewOnlineOrderDetail = () => {
                                     </div>
                                     {/* ROOM */}
                                 </div>
-                                <div className="row mb-4">
-                                    {/* 3. NAME | SPECIALITY | ROOM */}
-                                    <div className="col-md-4">
-                                        <div className="mb-3">
-                                            <label className="form-label" htmlFor="name">Tên Bệnh Nhân</label>
-                                            <p id="name"><strong>Nguyễn Thành Phong</strong></p>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        {/* SPECIALITY */}
-                                        <div className="mb-3">
-                                            <label className="form-label" htmlFor="name">Email</label>
-                                            <p id="name"><strong>thienhoa812185@gmail.com</strong></p>
-                                        </div>
-                                    </div>
-                                    {/* SPECIALITY */}
-                                    <div className="col-md-4">
-                                        {/* ROOM */}
-                                        <div className="mb-3">
-                                            <label className="form-label" htmlFor="name">Số điện thoại</label>
-                                            <p id="name"><strong>0983801656</strong></p>
-                                        </div>
-                                    </div>
-                                    {/* ROOM */}
-                                </div>
+                               
                             </div>
                         </div>
                         {/* Payment */}

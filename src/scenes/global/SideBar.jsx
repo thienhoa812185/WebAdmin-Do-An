@@ -9,11 +9,6 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import TableBarIcon from '@mui/icons-material/TableBar';
-import CoffeeIcon from '@mui/icons-material/Coffee';
-import { Category } from "@mui/icons-material";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import StorefrontIcon from '@mui/icons-material/Storefront';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
@@ -51,6 +46,7 @@ const Sidebar = () => {
   const handleLogOut = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("role");
+    localStorage.removeItem("username")
     navigate("/")
     window.location.reload();
   }
@@ -116,15 +112,15 @@ const Sidebar = () => {
               </Box>
               <Box textAlign="center">
                 <Typography
-                  variant="h2"
+                  variant="h4"
                   color={colors.grey[100]}
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Ed Roh
+                  nguyenvanminhtri
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  {role === "staff" ? "Staff" : "Admin"}
+                  {role === "doctor" ? "Doctor" : "Admin"}
                 </Typography>
               </Box>
             </Box>
@@ -148,13 +144,8 @@ const Sidebar = () => {
                     selected={selected}
                     setSelected={setSelected}
                   />
-                  <Item
-                    title="Speciality"
-                    to="/speciality"
-                    icon={<HomeOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
+
+
                   <Typography
                     variant="h6"
                     color={colors.grey[300]}
@@ -162,13 +153,7 @@ const Sidebar = () => {
                   >
                     Order
                   </Typography>
-                  <Item
-                    title="Table Order Management"
-                    to="/tableManagement"
-                    icon={<TableBarIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
+
                   <Item
                     title="Booking Management"
                     to="/appointmentDoctor"
@@ -176,18 +161,19 @@ const Sidebar = () => {
                     selected={selected}
                     setSelected={setSelected}
                   />
-                  {/* <Item
-                    title="Offline Order Management"
-                    to="/offlineOrderManagement"
-                    icon={<ShoppingCartIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  /> */}
 
                   <Item
-                    title="Online Order Management"
-                    to="/onlineOrderManagement"
-                    icon={<LocalShippingIcon />}
+                    title="Thống kê doanh thu"
+                    to="/statistical"
+                    icon={<BarChartIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+
+                  <Item
+                    title="Quản lý thông tin cá nhân"
+                    to="/viewDetailDoctor/GetByUsername"
+                    icon={<PeopleIcon />}
                     selected={selected}
                     setSelected={setSelected}
                   />
@@ -231,13 +217,13 @@ const Sidebar = () => {
                     selected={selected}
                     setSelected={setSelected}
                   />
-                  <Item
+                  {/* <Item
                     title="Dịch vụ"
                     to="/serviceManagement"
                     icon={<VaccinesIcon />}
                     selected={selected}
                     setSelected={setSelected}
-                  />
+                  /> */}
                   <Item
                     title="Người dùng"
                     to="/teamManagement"

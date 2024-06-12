@@ -7,7 +7,6 @@ import Header from "../../components/Header"
 import { Link } from "react-router-dom";
 import Status from "../../components/Status";
 import { useEffect, useState } from "react";
-import orderOnlineService from '../../service/orderOnlineService';
 import bookingService from "../../servicesss/bookingService";
 
 const AppointmentDoctor = () => {
@@ -22,6 +21,10 @@ const AppointmentDoctor = () => {
         init()
     }, []);
 
+    const formatCurrencyVND = (amount) => {
+        return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    }
+
     const init = () => {
         const username = localStorage.getItem("username")
         bookingService.getAllBookingDoctor(username)
@@ -34,13 +37,10 @@ const AppointmentDoctor = () => {
                         appointmentTime: element.doctorSchedule.scheduleTime.time,
                         doctorName: element.doctor.name,
                         appointmentDay: element.appointmentTime,
-                        //location: element.location,
-                        //orderTime: handleDateTime(element.orderTime),
-                        //statusBooking: element.statusBooking,
-                        totalPrice: element.doctor.examination_Price,
+                        statusPayment: element.statusPayment,
+                        totalPrice: formatCurrencyVND(element.doctor.examination_Price),
                         statusBooking: element.statusBooking,
                         note: element.note
-                        //paymentMethod: element.paymentMethod
                     }
                 })
                 setBookingList(list);
@@ -48,11 +48,6 @@ const AppointmentDoctor = () => {
             .catch(error => {
                 console.log(error);
             })
-    }
-
-    const handleDateTime = (timeArray) => {
-        const dateTime = new Date(timeArray[0], timeArray[1] - 1, timeArray[2], timeArray[3], timeArray[4], timeArray[5]);
-        return dateTime;
     }
 
     console.log(bookingList);
@@ -74,7 +69,7 @@ const AppointmentDoctor = () => {
         },
         {
             field: "doctorName",
-            headerName: "Bác sĩ/ Dịch vụ",
+            headerName: "Bác sĩ",
             flex: 1.5,
         },
         {
@@ -85,7 +80,7 @@ const AppointmentDoctor = () => {
         {
             field: "statusBooking",
             headerName: "Trạng thái",
-            flex: 2,
+            flex: 1.5,
             renderCell: (params) => (
                 <div>
                     <Status status={params.row.statusBooking} />
@@ -100,9 +95,19 @@ const AppointmentDoctor = () => {
             cellClassName: "name-column--cell",
         },
         {
-            field: "paymentMethod",
-            headerName: "Payment Method",
+            field: "statusPayment",
+            headerName: "Trạng thái thanh toán",
             flex: 1,
+            renderCell: (params) => (
+                <div>
+                    {
+                        params.row.statusPayment === "PAID" && <span className="badge bg-success rounded-pill">{params.row.statusPayment}</span>
+                    }
+                    {
+                        params.row.statusPayment === "UNPAID" && <span className="badge bg-danger rounded-pill">{params.row.statusPayment}</span>
+                    }
+                </div>
+            ),
         },
         {
             field: 'actions',

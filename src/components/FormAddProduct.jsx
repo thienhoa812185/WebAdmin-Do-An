@@ -93,11 +93,11 @@ const FormAddProduct = (props) => {
                 console.log("Them thanh cong");
                 setProduct({
                     name: "",
-                    position:"",
-                    email:"",
-                    examinationPRICE:"",
-                    examinationADDRESS:"",
-                    username:"",
+                    position: "",
+                    email: "",
+                    examinationPRICE: "",
+                    examinationADDRESS: "",
+                    username: "",
                     password: "",
                     description: "",
                     specialityName: "",
@@ -116,51 +116,28 @@ const FormAddProduct = (props) => {
     return (
         <Box mt="20px">
             <Header
-                title="DOCTOR MANAGEMENT"
-                subtitle="List of Doctor for Future Reference"
+                title="Quản lý thông tin bác sĩ"
+                subtitle="Danh sách các bác sĩ có trong hệ thống"
             />
             <Box>
                 <Box sx={{
                     display: "flex",
                     justifyContent: "space-between",
-                    mt: 3
+                    mt: 3,
+                    mb: 2
 
                 }}>
                     <Box>
-                        <Button variant="contained" onClick={handleClickOpen} size="large" startIcon={<AddIcon />} sx={{ backgroundColor: colors.blueAccent[500] }}>Add Doctor</Button>
-                    </Box>
-                    <Box>
-                        <TextField
-                            fullWidth
-                            color="secondary"
-                            select
-                            required
-                            label="SPECIALITY"
-                            name="categoryName"
-                            onChange={(e) => getProductByCategoryName(e)}
-                            sx={{ width: 300 }}
-                        >
-                            <MenuItem key={0} value="All Product">
-                                All Doctor
-                            </MenuItem>
-                            {
-                                specialityList.map(element => (
-                                    <MenuItem key={element.id} value={element.name}>
-                                        {element.name}
-                                    </MenuItem>
-                                ))
-                            }
-                        </TextField>
+                        <Button variant="contained" onClick={handleClickOpen} size="large" startIcon={<AddIcon />} sx={{ backgroundColor: colors.blueAccent[500] }}>Thêm bác sĩ</Button>
                     </Box>
                 </Box>
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>
-                        <Typography variant="h2" component='div'>Add Doctor</Typography>
+                        <Typography variant="h2" component='div'>Thêm bác sĩ</Typography>
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
-                            To subscribe to this website, please enter your email address here. We
-                            will send updates occasionally.
+                            Hãy nhập thông tin chi tiết bác sĩ cần thêm vào form dưới đây
                         </DialogContentText>
                         <Box component="form" onSubmit={handleAddSuccess}>
 
@@ -237,7 +214,7 @@ const FormAddProduct = (props) => {
                                 onChange={(e) => handleChange(e)}
                                 sx={{ mb: 4 }}
                             />
-                               <TextField
+                            <TextField
                                 type="text"
                                 color="secondary"
                                 variant='outlined'

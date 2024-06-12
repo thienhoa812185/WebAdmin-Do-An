@@ -124,7 +124,7 @@ export default function Chart(props) {
     //console.log(endDisplay(props.order, props.valueFromDate, props.valueToDate))
     return (
         <React.Fragment>
-            <Title>Sales Statistics</Title>
+            <Title>Biểu đồ thống kê</Title>
             <ResponsiveContainer>
                 <LineChart
                     data={endDisplay(props.order, props.valueFromDate, props.valueToDate)}

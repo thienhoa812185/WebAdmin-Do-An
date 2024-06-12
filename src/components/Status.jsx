@@ -8,11 +8,11 @@ const Status = ({ status }) => {
       color = 'white';
       backgroundColor = 'red'; // Red background
       break;
-    case 'IN_PROGRESS':
+    case 'CONFIRM':
       color = 'white';
       backgroundColor = 'orange'; // Orange background
       break;
-    case 'DONE':
+    case 'COMPLETED':
       color = 'white';
       backgroundColor = 'green'; // Green background
       break;

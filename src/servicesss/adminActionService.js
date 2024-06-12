@@ -19,6 +19,10 @@ class AdminActionService {
         return axios.put(API_URL + `/api/adminAction/resetUserPassword?username=${encodeURIComponent(username)}`);
     }
 
+    changePassword(changePasswordDTO) {
+        return axios.put(API_URL + `/api/adminAction/changePassword`, changePasswordDTO);
+    }
+
 }
 
 const adminActionService = new AdminActionService();

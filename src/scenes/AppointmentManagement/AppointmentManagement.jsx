@@ -7,7 +7,6 @@ import Header from "../../components/Header"
 import { Link } from "react-router-dom";
 import Status from "../../components/Status";
 import { useEffect, useState } from "react";
-import orderOnlineService from '../../service/orderOnlineService';
 import bookingService from "../../servicesss/bookingService";
 
 const AppointmentManagement = () => {
@@ -50,12 +49,7 @@ const AppointmentManagement = () => {
             })
     }
 
-    const handleDateTime = (timeArray) => {
-        const dateTime = new Date(timeArray[0], timeArray[1] - 1, timeArray[2], timeArray[3], timeArray[4], timeArray[5]);
-        return dateTime;
-    }
-
-    console.log(bookingList);
+    //console.log(bookingList);
 
     const columns = [
         { field: "id", headerName: "ID", flex: 0.5 },
@@ -74,7 +68,7 @@ const AppointmentManagement = () => {
         },
         {
             field: "doctorName",
-            headerName: "Bác sĩ/ Dịch vụ",
+            headerName: "Bác sĩ",
             flex: 1.5,
         },
         {
@@ -102,7 +96,7 @@ const AppointmentManagement = () => {
         {
             field: "statusPayment",
             headerName: "Trạng thái thanh toán",
-            flex: 2,
+            flex: 1,
             renderCell: (params) => (
                 <div>
                     {
@@ -115,13 +109,8 @@ const AppointmentManagement = () => {
             ),
         },
         {
-            field: "paymentMethod",
-            headerName: "Payment Method",
-            flex: 1,
-        },
-        {
             field: 'actions',
-            headerName: 'Actions',
+            headerName: 'Hành động',
             flex: 1,
             renderCell: (params) => (
                 <div>
@@ -141,8 +130,8 @@ const AppointmentManagement = () => {
     return (
         <Box m="20px">
             <Header
-                title="ONLINE APPOINTMENT MANAGEMENT"
-                subtitle="List of Order for Future Reference"
+                title="Quản lý thông tin đặt lịch Online"
+                subtitle="Danh sách các lịch hẹn đã được đặt"
             />
             <Box
                 m="40px 0 0 0"

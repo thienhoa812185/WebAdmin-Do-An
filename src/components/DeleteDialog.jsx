@@ -104,7 +104,7 @@ const DeleteDialog = (props) => {
                 console.log(props.id);
                 specialityService.deleteSpeciality(props.id)
                     .then((res) => {
-                        console.log("Delete Success");
+                        alert(res.data);
                         props.handleRefreshSpeciality();
                         handleClose();
                         props.handleClose();
@@ -120,7 +120,7 @@ const DeleteDialog = (props) => {
     return (
         <Box>
             <Button variant="contained" onClick={handleClickOpen} color="error" size="medium" startIcon={<DeleteIcon />}>
-                Delete
+                Xóa
             </Button>
             <Dialog
                 open={open}

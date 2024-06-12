@@ -63,7 +63,7 @@ const FormAddSpeciality = (props) => {
             specialityService
                 .saveSpeciality(formData)
                 .then((res) => {
-                    console.log("Speciality Add Sucessfully");
+                    alert(res.data)
                     setSpeciality({
                         name: "",
                         description: "",
