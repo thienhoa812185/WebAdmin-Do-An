@@ -8,6 +8,8 @@ import CardMedia from '@mui/material/CardMedia';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import doctorService from "../../servicesss/doctorService";
 import FormAddProduct from "../../components/FormAddProduct";
+import specialityService from "../../servicesss/specialityService";
+import DeleteDialog from "../../components/DeleteDialog";
 
 function SearchBar({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -85,8 +87,8 @@ function OrderFilter({ onOrderChange, onColumnChange, onStatusChange }) {
   );
 }
 
-function SpecialityFilter({ onSpecialityChange }) {
-  const [speciality, setSpeciality] = useState('');
+function SpecialityFilter({ onSpecialityChange, specialityList }) {
+  const [speciality, setSpeciality] = useState('Bác sĩ');
 
   const handleSpecialityChange = (event) => {
     setSpeciality(event.target.value);
@@ -98,9 +100,9 @@ function SpecialityFilter({ onSpecialityChange }) {
       <label className="form-label" htmlFor="speciality">Chuyên khoa</label>
       <select className="form-select" value={speciality} onChange={handleSpecialityChange} required>
         <option value="">Chọn...</option>
-        <option value="Cơ Xương Khớp">Cơ Xương Khớp</option>
-        <option value="Thần Kinh">Thần Kinh</option>
-        <option value="Tiêu Hóa">Tiêu Hóa</option>
+        {specialityList.map((spec, index) => (
+          <option key={index} value={spec.name}>{spec.name}</option>
+        ))}
       </select>
     </div>
   );
@@ -160,8 +162,13 @@ function Doctor() {
   const [position, setPosition] = useState('');
   const [price, setPrice] = useState('');
   const [filteredDoctorList, setFilteredDoctorList] = useState([]);
+  const [specialityList, setSpecialityList] = useState([]);
 
-  console.log(doctorList)
+
+  const formatCurrencyVND = (amount) => {
+    return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+  }
+
 
   useEffect(() => {
     init();
@@ -177,6 +184,15 @@ function Doctor() {
       .then((res) => {
         setDoctorList(res.data);
         setFilteredDoctorList(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    specialityService
+      .getAllSpeciality()
+      .then((res) => {
+        setSpecialityList(res.data)
       })
       .catch((error) => {
         console.log(error);
@@ -264,7 +280,7 @@ function Doctor() {
                 onStatusChange={setStatus}
               />
               <div className="row mb-3">
-                <SpecialityFilter onSpecialityChange={setSpeciality} />
+                <SpecialityFilter onSpecialityChange={setSpeciality} specialityList={specialityList} />
                 <PositionFilter onPositionChange={setPosition} />
                 <PriceFilter onPriceChange={setPrice} />
               </div>
@@ -290,14 +306,19 @@ function Doctor() {
                           {element.name}
                         </Typography>
                         <Typography variant="body2" color="text.secondary">
-                          {element.examination_Price} VND
+                          Giá khám: {formatCurrencyVND(element.examination_Price)}
                         </Typography>
                       </CardContent>
                     </CardActionArea>
                     <CardActions>
-                      <Button variant="contained" color="success" size="medium" component={Link} to={"/viewDetailDoctor/" + element.id} startIcon={<VisibilityIcon />}>
+                      <Button variant="contained" color="success" size="medium" component={Link} to={"/viewDetailDoctor/" + element.id} startIcon={<VisibilityIcon />} sx={{ mr: 1 }} >
                         Xem chi tiết
                       </Button>
+                      <DeleteDialog
+                        name="doctor"
+                        id={element.id}
+                        handleRefreshSpeciality={init}
+                      />
                     </CardActions>
                   </Card>
                 </Grid>

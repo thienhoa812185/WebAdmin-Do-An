@@ -59,6 +59,7 @@ function App() {
                         <Route path="/patient" element={<Patient />} />
                         <Route path="/appointmentManagement" element={<AppointmentManagement />} />
                         <Route path="/serviceManagement" element={<ServiceManagement />} />
+
                         <Route path="/personalInformation" element={<PersonalInformation />} />
                         <Route path='/viewOnlineOrderDetail/:id' element={<ViewOnlineOrderDetail />} />
 

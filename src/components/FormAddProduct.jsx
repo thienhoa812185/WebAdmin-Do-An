@@ -25,8 +25,6 @@ const FormAddProduct = (props) => {
         images: ""
     });
 
-    console.log(product);
-
     const handleChange = (e) => {
         const value = e.target.value;
         if (e.target.name === "images") {
@@ -47,11 +45,6 @@ const FormAddProduct = (props) => {
     useEffect(() => {
         init();
     }, []);
-
-    const getProductByCategoryName = (e) => {
-        const nameCategory = e.target.value;
-        props.handleGetProductByCategoryName(nameCategory);
-    }
 
     const init = () => {
         specialityService
@@ -76,11 +69,29 @@ const FormAddProduct = (props) => {
 
     const handleAddSuccess = (e) => {
         e.preventDefault();
+
+        // Thay thế dấu phẩy bằng dấu chấm và chuyển đổi giá trị examinationPRICE thành số thực
+        const priceString = product.examinationPRICE.replace(',', '.');
+        const price = parseFloat(priceString);
+
+        // Kiểm tra nếu price không phải là số thực hoặc không phải là số nguyên
+        if (isNaN(price) || !Number.isInteger(price)) {
+            alert("Giá tiền phải là một số nguyên");
+            return;
+        }
+
+        // Kiểm tra email hợp lệ
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(product.email)) {
+            alert("Email không hợp lệ");
+            return;
+        }
+
         const formData = new FormData();
         formData.append('name', product.name);
         formData.append('position', product.position);
         formData.append('email', product.email);
-        formData.append('examinationPRICE', product.examinationPRICE);
+        formData.append('examinationPRICE', price); // Sử dụng giá trị price đã chuyển đổi
         formData.append('examinationADDRESS', product.examinationADDRESS);
         formData.append('username', product.username);
         formData.append('password', product.password);
@@ -90,7 +101,7 @@ const FormAddProduct = (props) => {
 
         doctorService.saveDoctor(formData)
             .then((res) => {
-                console.log("Them thanh cong");
+                console.log("Thêm thành công");
                 setProduct({
                     name: "",
                     position: "",
@@ -102,14 +113,14 @@ const FormAddProduct = (props) => {
                     description: "",
                     specialityName: "",
                     image: ""
-                })
+                });
                 handleClose();
-                props.handleRefreshProduct()
+                props.handleRefreshProduct();
             })
             .catch(error => {
                 console.log(error);
                 alert("Dữ liệu nhập không hợp lệ");
-            })
+            });
     }
 
 
@@ -179,7 +190,7 @@ const FormAddProduct = (props) => {
                                     type="text"
                                     variant='outlined'
                                     color="secondary"
-                                    label="Doctor Name"
+                                    label="Tên bác sĩ"
                                     name="name"
                                     fullWidth
                                     required
@@ -190,7 +201,7 @@ const FormAddProduct = (props) => {
                                     color="secondary"
                                     select
                                     required
-                                    label="Speciality"
+                                    label="Chuyên Khoa"
                                     name="specialityName"
                                     onChange={(e) => handleChange(e)}
                                 >
@@ -204,21 +215,26 @@ const FormAddProduct = (props) => {
                                 </TextField>
                             </Stack>
                             <TextField
-                                type="text"
-                                color="secondary"
-                                variant='outlined'
-                                label="Position"
-                                name="position"
                                 fullWidth
+                                color="secondary"
+                                select
                                 required
+                                label="Chức vụ"
+                                name="position"
                                 onChange={(e) => handleChange(e)}
                                 sx={{ mb: 4 }}
-                            />
+                            >
+                                <MenuItem value="Bác sĩ">Bác sĩ</MenuItem>
+                                <MenuItem value="Thạc sĩ">Thạc sĩ</MenuItem>
+                                <MenuItem value="Tiến sĩ">Tiến sĩ</MenuItem>
+                                <MenuItem value="Bác sĩ Chuyên khoa I">Bác sĩ Chuyên khoa I</MenuItem>
+                                <MenuItem value="Bác sĩ Chuyên khoa II">Bác sĩ Chuyên khoa II</MenuItem>
+                            </TextField>
                             <TextField
                                 type="text"
                                 color="secondary"
                                 variant='outlined'
-                                label="Description"
+                                label="Mô tả"
                                 name="description"
                                 fullWidth
                                 required
@@ -229,7 +245,7 @@ const FormAddProduct = (props) => {
                                 type="text"
                                 color="secondary"
                                 variant='outlined'
-                                label="EXAMINATION_PRICE"
+                                label="Giá khám"
                                 name="examinationPRICE"
                                 fullWidth
                                 required
@@ -240,7 +256,7 @@ const FormAddProduct = (props) => {
                                 type="text"
                                 color="secondary"
                                 variant='outlined'
-                                label="EXAMINATION_ADDRESS"
+                                label="Địa chỉ khám"
                                 name="examinationADDRESS"
                                 required
                                 fullWidth
@@ -255,11 +271,11 @@ const FormAddProduct = (props) => {
                                 onChange={(e) => { handleChange(e) }}
                                 sx={{ mb: 4 }}
                             />
-                            <Button variant="outlined" color="secondary" type="submit">Add Doctor </Button>
+                            <Button variant="outlined" color="secondary" type="submit">Thêm bác sĩ</Button>
                         </Box>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="outlined" onClick={handleClose} color="error">Cancel</Button>
+                        <Button variant="outlined" onClick={handleClose} color="error">Hủy bỏ</Button>
                     </DialogActions>
                 </Dialog>
             </Box>

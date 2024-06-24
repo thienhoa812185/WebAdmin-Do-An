@@ -21,6 +21,10 @@ const AppointmentManagement = () => {
         init()
     }, []);
 
+    const formatCurrencyVND = (amount) => {
+        return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    }
+
     const init = () => {
         bookingService.getAllBooking()
             .then(res => {
@@ -36,12 +40,12 @@ const AppointmentManagement = () => {
                         //orderTime: handleDateTime(element.orderTime),
                         //statusBooking: element.statusBooking,
                         statusPayment: element.statusPayment,
-                        totalPrice: element.doctor.examination_Price,
+                        totalPrice: formatCurrencyVND(element.price),
                         statusBooking: element.statusBooking,
                         note: element.note
                         //paymentMethod: element.paymentMethod
                     }
-                })
+                }).reverse();
                 setBookingList(list);
             })
             .catch(error => {

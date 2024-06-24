@@ -23,7 +23,7 @@ const mapToOrderListDisplay = (orderList) => {
   const order = orderList.map(element => {
     return {
       paymentTime: handleDateTime(element.appointmentTime),
-      totalPrice: element.doctor.examination_Price
+      totalPrice: element.price
     }
   })
   const groupedOrders = order.reduce((result, currentOrder) => {

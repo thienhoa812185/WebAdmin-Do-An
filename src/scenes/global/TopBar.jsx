@@ -116,10 +116,11 @@ const Topbar = () => {
       }
     }
 
+
     if (wsDataRespone.message === "NEW_DOCTOR_APPOINTMENT") {
       return {
-        content: `You have new doctor appointment`,
-        route: `/viewOnlineOrderDetail/${wsDataRespone.data.id}` // TODO modify path here
+        content: `Bạn có một cuộc hẹn của bệnh nhân: ${wsDataRespone.data}`,
+        route: `/viewOnlineOrderDetail/${wsDataRespone.data}` // TODO modify path here
       }
     }
   }
@@ -140,9 +141,13 @@ const Topbar = () => {
           route: contentRoute.route
         }
 
+        const role = localStorage.getItem("role");
+        console.log(role)
+        if (role === "admin") {
           incrementNotification(notificationDataToStoreInRedux)
           setNotificationData(notificationDataToStoreInRedux)
-        setOpenAlert(true)
+          setOpenAlert(true)
+        }
       });
     });
   }, []);

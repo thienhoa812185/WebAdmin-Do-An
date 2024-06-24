@@ -61,12 +61,12 @@ const FormAdddoctor = (props) => {
 
     return (
         <Box mt="20px">
-            <Header title="TEAM" subtitle="Managing the Team Members" />
+            <Header title="Quản lý thông tin bệnh nhân" subtitle="Danh sách các bệnh nhân có trong hệ thống" />
             <Box>
-                <Button variant="contained" onClick={handleClickOpen} size="large" startIcon={<AddIcon />} sx={{ backgroundColor: colors.blueAccent[500] }}>Add Doctor Account</Button>
+                {/* <Button variant="contained" onClick={handleClickOpen} size="large" startIcon={<AddIcon />} sx={{ backgroundColor: colors.blueAccent[500] }}>Thêm tài khoản bác sĩ</Button> */}
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>
-                        <Typography variant="h2" component='div'>Add Doctor Account</Typography>
+                        <Typography variant="h2" component='div'>Thêm tài khoản bác sĩ</Typography>
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText>
@@ -110,11 +110,11 @@ const FormAdddoctor = (props) => {
                                 onChange={(e) => handleChange(e)}
                                 value={doctor.password}
                             />
-                            <Button variant="outlined" color="secondary" type="submit">Add Account</Button>
+                            <Button variant="outlined" color="secondary" type="submit">Thêm tài khoản </Button>
                         </Box>
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="outlined" onClick={handleClose} color="error">Cancel</Button>
+                        <Button variant="outlined" onClick={handleClose} color="error">Hủy bỏ</Button>
                     </DialogActions>
                 </Dialog>
             </Box>

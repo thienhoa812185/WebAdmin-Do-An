@@ -121,7 +121,7 @@ export default function Login(props) {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign in
+                            Đăng nhập
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
@@ -148,7 +148,7 @@ export default function Login(props) {
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}
-                                label="Remember me"
+                                label="Nhớ mật khẩu"
                             />
                             <Button
                                 type="submit"
@@ -157,7 +157,7 @@ export default function Login(props) {
                                 sx={{ mt: 3, mb: 2 }}
                                 disabled={isSubmitting}
                             >
-                                {isSubmitting ? 'Submitting...' : 'Sign In'}
+                                {isSubmitting ? 'Đang đăng nhập...' : 'Đăng nhập'}
                             </Button>
                             {/* <Grid container>
                                 <Grid item xs>

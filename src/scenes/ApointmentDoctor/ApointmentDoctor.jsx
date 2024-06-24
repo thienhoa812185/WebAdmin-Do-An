@@ -38,7 +38,7 @@ const AppointmentDoctor = () => {
                         doctorName: element.doctor.name,
                         appointmentDay: element.appointmentTime,
                         statusPayment: element.statusPayment,
-                        totalPrice: formatCurrencyVND(element.doctor.examination_Price),
+                        totalPrice: formatCurrencyVND(element.price),
                         statusBooking: element.statusBooking,
                         note: element.note
                     }
@@ -131,8 +131,8 @@ const AppointmentDoctor = () => {
     return (
         <Box m="20px">
             <Header
-                title="ONLINE APPOINTMENT MANAGEMENT"
-                subtitle="List of Order for Future Reference"
+                title="Quản lý thông tin đặt lịch Online"
+                subtitle="Danh sách các lịch hẹn đã được đặt"
             />
             <Box
                 m="40px 0 0 0"

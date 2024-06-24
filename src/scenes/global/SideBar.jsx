@@ -217,13 +217,13 @@ const Sidebar = () => {
                     selected={selected}
                     setSelected={setSelected}
                   />
-                  {/* <Item
-                    title="Dịch vụ"
-                    to="/serviceManagement"
+                  <Item
+                    title="Bệnh nhân"
+                    to="/patient"
                     icon={<VaccinesIcon />}
                     selected={selected}
                     setSelected={setSelected}
-                  /> */}
+                  />
                   <Item
                     title="Người dùng"
                     to="/teamManagement"
@@ -249,108 +249,10 @@ const Sidebar = () => {
                     setSelected={setSelected}
                   />
 
-                  <Item
+                  {/* <Item
                     title="Quản lý thông tin cá nhân"
                     to="/personalInformation"
                     icon={<PeopleIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  {/* <Item
-                    title="Bệnh nhân"
-                    to="/patient"
-                    icon={<PeopleIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-
-                  
-                  <Item
-                    title="Thống kê doanh thu"
-                    to="/statistical"
-                    icon={<BarChartIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Typography
-                    variant="h6"
-                    color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                  >
-                    Product
-                  </Typography>
-                  <Item
-                    title="Category Management"
-                    to="/category"
-                    icon={<Category />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-
-                  <Item
-                    title="Product Management"
-                    to="/product"
-                    icon={<CoffeeIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-
-                  <Item
-                    title="Combo Management"
-                    to="/comboManagement"
-                    icon={<StorefrontIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Typography
-                    variant="h6"
-                    color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                  >
-                    User
-                  </Typography>
-
-                  <Item
-                    title="User Management"
-                    to="/teamManagement"
-                    icon={<PeopleOutlinedIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                  <Typography
-                    variant="h6"
-                    color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                  >
-                    Order
-                  </Typography>
-                  <Item
-                    title="Table Order Management"
-                    to="/tableManagement"
-                    icon={<TableBarIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  /> */}
-                  {/* <Item
-                    title="Offline Order Management"
-                    to="/offlineOrderManagement"
-                    icon={<ShoppingCartIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  /> */}
-
-                  {/* <Item
-                    title="Online Order Management"
-                    to="/onlineOrderManagement"
-                    icon={<LocalShippingIcon />}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-
-                  <Item
-                    title="Sales Revenue Management"
-                    to="/statistical"
-                    icon={<BarChartIcon />}
                     selected={selected}
                     setSelected={setSelected}
                   /> */}

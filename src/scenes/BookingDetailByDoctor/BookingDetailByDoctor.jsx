@@ -29,6 +29,7 @@ const BookingDetailByDoctor = () => {
                 console.log(error);
             })
     }
+    console.log(order)
 
     const formatCurrencyVND = (amount) => {
         return amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
@@ -43,7 +44,8 @@ const BookingDetailByDoctor = () => {
         bookingService.updateConcludeBooking(id, data)
             .then(res => {
                 console.log(res.data)
-                navigate("/appointmentManagement")
+                alert("Cập nhật thông tin thành công")
+                // navigate("/appointmentManagement")
             })
             .catch(err => {
                 console.log(err)
@@ -58,7 +60,7 @@ const BookingDetailByDoctor = () => {
         bookingService.updateStatusBooking(id, data)
             .then(res => {
                 console.log(res.data)
-                navigate("/appointmentManagement")
+                navigate("/appointmentDoctor")
             })
             .catch(err => {
                 console.log(err)
@@ -72,15 +74,14 @@ const BookingDetailByDoctor = () => {
 
     }
 
-
-
     console.log(order);
+
     return (
         <div className="container-fluid" style={{ backgroundColor: colors.blueAccent[200] }}>
             <div className="container">
                 {/* Title */}
                 <div className="d-flex justify-content-between align-items-center py-3">
-                    <h2 className="h5 mb-0"><a href="https://mui.com/" style={{ color: 'red' }}>Order #{order && order.id}</a></h2>
+                    <h2 className="h5 mb-0"><a href="https://mui.com/" style={{ color: 'red' }}>Lịch đặt:{order && order.id}</a></h2>
                 </div>
 
                 {/* Main content */}
@@ -142,7 +143,7 @@ const BookingDetailByDoctor = () => {
                                         {/* ROOM */}
                                         <div className="mb-3">
                                             <label className="form-label" htmlFor="name">Giới tính</label>
-                                            <p id="name"><strong>{order && order.patient.gender === true ? "Nam" : "Nu"}</strong></p>
+                                            <p id="name"><strong>{order && order.patient.gender === true ? "Nam" : "Nữ"}</strong></p>
                                         </div>
                                     </div>
                                     {/* ROOM */}
@@ -155,7 +156,7 @@ const BookingDetailByDoctor = () => {
                             <div className="card-body">
                                 <div className="mb-3 d-flex justify-content-between">
                                     <div>
-                                        <span className="me-3">Booking Time: {order && order.doctorSchedule.scheduleTime.time} {order && order.appointmentTime}</span>
+                                        <h6>Thông tin kết luận của bác sĩ</h6>
                                         {/* <span className="me-3">#id</span>
                                         <span className="me-3">Visa -1234</span> */}
                                     </div>
@@ -171,7 +172,7 @@ const BookingDetailByDoctor = () => {
 
                                     <div className="col-md-12">
                                         <div className="mb-3">
-                                            <label className="form-label" htmlFor="description">Cách phòng ngừa</label>
+                                            <label className="form-label" htmlFor="description">Cách chữa trị</label>
                                             <textarea className="form-control" id="description" value={order && order.precaution} name='precaution' onChange={handleChange}></textarea>
                                         </div>
                                     </div>
@@ -187,8 +188,8 @@ const BookingDetailByDoctor = () => {
                                     <div className="col-lg-6">
                                         <h3 className="h6">Phương thức thanh toán</h3>
                                         <p>"Trả bằng thẻ"<br />
-                                            {order && order.statusPayment === "UNPAID" && <>Tổng tiền: {order && formatCurrencyVND(order.doctor.examination_Price)} <span className="badge bg-danger rounded-pill">{order && order.statusPayment}</span></>}
-                                            {order && order.statusPayment === "PAID" && <>Tổng tiền: {order && formatCurrencyVND(order.doctor.examination_Price)} <span className="badge bg-success rounded-pill">{order && order.statusPayment}</span></>}
+                                            {order && order.statusPayment === "UNPAID" && <>Tổng tiền: {order && formatCurrencyVND(order.price)} <span className="badge bg-danger rounded-pill">{order && order.statusPayment}</span></>}
+                                            {order && order.statusPayment === "PAID" && <>Tổng tiền: {order && formatCurrencyVND(order.price)} <span className="badge bg-success rounded-pill">{order && order.statusPayment}</span></>}
 
                                         </p>
                                     </div>
@@ -201,7 +202,7 @@ const BookingDetailByDoctor = () => {
                                             <abbr title="Phone">P:</abbr> (123) 456-7890
                                         </address>
                                         <Button variant='contained' sx={{ marginRight: 2 }} onClick={handleUpdateConclude}>Cập nhật</Button>
-                                        <Button variant='contained' color="secondary" onClick={() => navigate("/appointmentManagement")}>Quay lại</Button>
+                                        <Button variant='contained' color="secondary" onClick={() => navigate("/appointmentDoctor")}>Quay lại</Button>
                                     </div>
                                 </div>
                             </div>

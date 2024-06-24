@@ -8,6 +8,7 @@ import commentService from "../service/commentService";
 import adminActionService from "../servicesss/adminActionService";
 import tableService from "../service/tableService";
 import specialityService from "../servicesss/specialityService";
+import doctorService from "../servicesss/doctorService";
 
 const DeleteDialog = (props) => {
 
@@ -23,37 +24,11 @@ const DeleteDialog = (props) => {
 
     const handleDelete = () => {
         switch (props.name) {
-            case "category":
-                categoryService.deleleCategory(props.id)
-                    .then((res) => {
-                        console.log("Delete Successful");
-                        handleClose();
-                        props.handleRefreshCategory();
-                    })
-                    .catch((error) => {
-                        handleClose();
-                        console.log(error);
-                        alert("Không thể xóa vì bị ràng buộc");
-                    });
-                break;
             case "product":
                 productService.deleleProduct(props.id)
                     .then((res) => {
                         console.log("Delete Success");
                         props.handleRefreshProduct();
-                        handleClose();
-                    })
-                    .catch((error) => {
-                        handleClose();
-                        console.log(error);
-                        alert("Không thể xóa vì bị ràng buộc");
-                    });
-                break;
-            case "combo":
-                comboService.deleteCombo(props.id)
-                    .then((res) => {
-                        console.log("Delete Success");
-                        props.handleRefreshCombo();
                         handleClose();
                     })
                     .catch((error) => {
@@ -86,12 +61,13 @@ const DeleteDialog = (props) => {
                         console.log(error);
                     });
                 break;
-            case "table":
+
+            case "speciality":
                 console.log(props.id);
-                tableService.deleteTable(props.id)
+                specialityService.deleteSpeciality(props.id)
                     .then((res) => {
-                        console.log("Delete Success");
-                        props.handleRefreshTable();
+                        alert(res.data);
+                        props.handleRefreshSpeciality();
                         handleClose();
                         props.handleClose();
                     })
@@ -100,9 +76,8 @@ const DeleteDialog = (props) => {
                         console.log(error);
                     });
                 break;
-            case "speciality":
-                console.log(props.id);
-                specialityService.deleteSpeciality(props.id)
+            case "doctor":
+                doctorService.deleteDoctor(props.id)
                     .then((res) => {
                         alert(res.data);
                         props.handleRefreshSpeciality();

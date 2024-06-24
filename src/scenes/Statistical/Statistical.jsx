@@ -20,7 +20,7 @@ const defaultTheme = createTheme();
 const Statistical = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [valueFromDate, setValueFromDate] = useState(dayjs('2024-05-15'));
+  const [valueFromDate, setValueFromDate] = useState(dayjs('2024-06-01'));
   const [valueToDate, setValueToDate] = useState(dayjs('2024-06-10'));
   const [orderList, setOrderList] = useState([]);
 
@@ -69,6 +69,7 @@ const Statistical = () => {
     }
   }
 
+  console.log(orderList)
 
   return (
     <Container maxWidth="lg">

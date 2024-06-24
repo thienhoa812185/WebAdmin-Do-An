@@ -35,6 +35,10 @@ class DoctorService {
         });
     }
 
+    deleteDoctor(id) {
+        return axios.delete(API_URL + "/api/doctor/delete/" + id)
+    }
+
 }
 
 

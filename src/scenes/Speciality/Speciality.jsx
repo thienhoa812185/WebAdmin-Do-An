@@ -164,7 +164,7 @@ const FilterSection = ({ handleSearchChange, handleOrderDirChange, handleOrderCo
                                 <option disabled>Chọn...</option>
                                 <option value="id">ID</option>
                                 <option value="name">Tên chuyên khoa</option>
-                                <option value="doctor_quantity">Số lượng bác sĩ</option>
+                                {/* <option value="doctor_quantity">Số lượng bác sĩ</option> */}
                             </select>
                         </div>
                     </div>

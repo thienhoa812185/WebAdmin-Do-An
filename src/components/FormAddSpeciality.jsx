@@ -50,16 +50,16 @@ const FormAddSpeciality = (props) => {
 
     const handleAddSuccess = (e) => {
         e.preventDefault();
-        
-        if(speciality.image===""){
+
+        if (speciality.image === "") {
             alert('Vui lòng chọn một file hình ảnh');
         }
-        else{
+        else {
             const formData = new FormData();
             formData.append('name', speciality.name);
             formData.append('description', speciality.description);
             formData.append('image', speciality.image);
-    
+
             specialityService
                 .saveSpeciality(formData)
                 .then((res) => {
@@ -86,19 +86,18 @@ const FormAddSpeciality = (props) => {
             <Button variant="contained" onClick={handleClickOpen} size="large" startIcon={<AddIcon />} sx={{ backgroundColor: colors.blueAccent[500] }}>Thêm chuyên khoa</Button>
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>
-                    <Typography variant="h2" component='div'>Add Speciality</Typography>
+                    <Typography variant="h2" component='div'>Thêm chuyên khoa</Typography>
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
+                        Hãy nhập thông tin chi tiết chuyên khoa cần thêm vào form dưới đây.
                     </DialogContentText>
                     <Box component="form" sx={{ mt: 3 }} onSubmit={handleAddSuccess}>
                         <TextField
                             type="text"
                             variant='outlined'
                             color='secondary'
-                            label="Speciality Name"
+                            label="Tên chuyên khoa"
                             fullWidth
                             required
                             sx={{ mb: 3 }}
@@ -110,7 +109,7 @@ const FormAddSpeciality = (props) => {
                             type="text"
                             variant='outlined'
                             color='secondary'
-                            label="Description"
+                            label="Mô tả"
                             fullWidth
                             required
                             sx={{ mb: 3 }}
@@ -126,11 +125,11 @@ const FormAddSpeciality = (props) => {
                             onChange={(e) => { handleChange(e) }}
                             sx={{ mb: 4 }}
                         />
-                        <Button variant="outlined" color="secondary" type="submit">Add Speciality</Button>
+                        <Button variant="outlined" color="secondary" type="submit">Thêm chuyên khoa</Button>
                     </Box>
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="outlined" onClick={handleClose} color="error">Cancel</Button>
+                    <Button variant="outlined" onClick={handleClose} color="error">Hủy bỏ</Button>
                 </DialogActions>
             </Dialog>
         </Box>

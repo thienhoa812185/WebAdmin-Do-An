@@ -4,6 +4,7 @@ import doctorService from "../../servicesss/doctorService";
 import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import ChangePassword from "../../components/ChangePassword"
+import specialityService from "../../servicesss/specialityService";
 
 
 const ViewDetailDoctor = () => {
@@ -24,6 +25,9 @@ const ViewDetailDoctor = () => {
         }
     });
 
+    const [specialityList, setSpecialityList] = useState([]);
+
+
     console.log(doctor)
 
     const { id } = useParams();
@@ -41,13 +45,26 @@ const ViewDetailDoctor = () => {
         }));
     };
 
-    const handleUpdateDoctor = () => {
-        // Chuyển đổi giá trị price thành số
-        const price = parseFloat(doctor.examination_Price);
+    const handleSpecialityChange = (event) => {
+        const { value } = event.target;
+        setDoctor((prevDoctor) => ({
+            ...prevDoctor,
+            speciality: {
+                ...prevDoctor.speciality,
+                name: value
+            }
+        }));
+    }
 
-        // Kiểm tra nếu price không phải là một số hoặc là NaN
-        if (isNaN(price)) {
-            alert("Giá tiền phải là một số");
+
+    const handleUpdateDoctor = () => {
+        // Chuyển đổi giá trị examination_Price thành chuỗi và thay thế dấu phẩy bằng dấu chấm
+        const priceString = String(doctor.examination_Price).replace(',', '.');
+        const price = parseFloat(priceString);
+
+        // Kiểm tra nếu price không phải là số thực hoặc không phải là số nguyên
+        if (isNaN(price) || !Number.isInteger(price)) {
+            alert("Giá tiền phải là một số nguyên");
             return;
         }
 
@@ -56,7 +73,9 @@ const ViewDetailDoctor = () => {
         formData.append('description', doctor.description);
         formData.append('education', doctor.education);
         formData.append('experience', doctor.experience);
-        formData.append('price', price); // Sử dụng giá trị price đã chuyển đổi
+        formData.append('price', price);
+        formData.append('position', doctor.position);
+        formData.append('speciality', doctor.speciality.name);
 
         doctorService
             .updateInfomationDoctor(doctor.id, formData)
@@ -91,6 +110,15 @@ const ViewDetailDoctor = () => {
                     console.log(error);
                 });
         }
+
+        specialityService
+            .getAllSpeciality()
+            .then((res) => {
+                setSpecialityList(res.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
 
 
     }
@@ -135,15 +163,28 @@ const ViewDetailDoctor = () => {
                                     <div className="col-md-4">
                                         <div className="mb-3">
                                             <label className="form-label" htmlFor="speciality">Chuyên khoa</label>
-                                            <textarea className="form-control" id="speciality" rows="1" value={doctor.speciality.name}></textarea>
+                                            {/* <textarea className="form-control" id="speciality" rows="1" value={doctor.speciality.name}></textarea> */}
+                                            <select className="form-select" value={doctor.speciality.name} id="speciality" onChange={handleSpecialityChange}>
+                                                {specialityList.map((spec, index) => (
+                                                    <option key={index} value={spec.name}>{spec.name}</option>
+                                                ))}
+                                            </select>
+
                                         </div>
                                     </div>{/* SPECIALITY */}
                                     <div className="col-md-4">
-                                        <div className="mb-3">{/* ACTIVE */}
+                                        <div className="mb-3">
                                             <label className="form-label" htmlFor="role">Vai trò</label>
-                                            <textarea className="form-control" id="role" rows="1" value={doctor.position}></textarea>
-                                        </div>{/* end ACTIVE */}
-                                    </div>{/* ROOM */}
+                                            <select className="form-select" id="role" value={doctor.position} name="position" onChange={handleInputChange}>
+                                                <option value="Bác sĩ">Bác sĩ</option>
+                                                <option value="Thạc sĩ">Thạc sĩ</option>
+                                                <option value="Tiến sĩ">Tiến sĩ</option>
+                                                <option value="Bác sĩ Chuyên khoa I">Bác sĩ Chuyên khoa I</option>
+                                                <option value="Bác sĩ Chuyên khoa II">Bác sĩ Chuyên khoa II</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 {/* end 3. NAME | SPECIALITY | ROOM */}
                                 <div className="row mb-4">
